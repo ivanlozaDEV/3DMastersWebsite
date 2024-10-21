@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, send_from_directory, jsonify
+from flask import Flask, redirect, url_for, send_from_directory
 from extensions import db
 from flask_cors import CORS
 from backend.routes import api_blueprint
@@ -23,7 +23,8 @@ def create_app():
     # Verificar la conexión a la base de datos
     with app.app_context():
         try:
-            db.engine.execute("SELECT 1")  # Simple query para verificar la conexión
+            with db.session.begin():
+                db.session.execute("SELECT 1")  # Simple query para verificar la conexión
         except Exception as e:
             print(f"Error al conectar a la base de datos: {e}")
 
