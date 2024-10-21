@@ -1,17 +1,19 @@
 import sys
 import os
+from extensions import db  # Asegúrate de que esto apunte a la extensión correcta
 
-# Agregar el directorio src al path de Python
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+# Agregar el directorio backend al path de Python
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'backend')))
 
-from backend import create_app, db  # Asegúrate de que la importación sea correcta
-from flask_migrate import upgrade
+from backend import create_app  # Importar la función create_app
+from flask_migrate import upgrade, migrate  # Asegúrate de importar migrate si lo necesitas
 
 def initialize_database():
     app = create_app()
     with app.app_context():
         try:
             # Aplica las migraciones
+            # migrate()  # Opcional: si necesitas crear nuevas migraciones
             upgrade()
             print("Database upgraded successfully!")
         except Exception as e:
