@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, send_from_directory
+from flask import Flask, redirect, url_for, send_from_directory, jsonify
 from extensions import db
 from flask_cors import CORS
 from backend.routes import api_blueprint
@@ -20,6 +20,13 @@ def create_app():
     # Inicializar la base de datos
     db.init_app(app)
 
+    # Verificar la conexión a la base de datos
+    with app.app_context():
+        try:
+            db.engine.execute("SELECT 1")  # Simple query para verificar la conexión
+        except Exception as e:
+            print(f"Error al conectar a la base de datos: {e}")
+
     # Habilitar CORS
     CORS(app)
 
@@ -39,6 +46,11 @@ def create_app():
     @app.route('/<path:path>')
     def send_static(path):
         return send_from_directory(app.static_folder, path)
+
+    # Manejo de errores 404
+    @app.errorhandler(404)
+    def not_found(error):
+        return send_from_directory(app.static_folder, 'index.html'), 404
 
     return app
 
