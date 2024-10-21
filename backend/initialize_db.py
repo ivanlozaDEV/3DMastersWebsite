@@ -1,6 +1,6 @@
 import sys
 import os
-from backend.extensions import db  # Asegúrate de que esto apunte a la extensión correcta
+from extensions import db  # Asegúrate de que esto apunte a la extensión correcta
 
 # Agregar el directorio backend al path de Python
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'backend')))
