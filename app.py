@@ -1,4 +1,5 @@
 from flask import Flask, redirect, url_for, send_from_directory
+from flask_migrate import Migrate
 from extensions import db
 from flask_cors import CORS
 from backend.routes import api_blueprint
@@ -7,6 +8,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from backend.models import Item  # Asegúrate de tener el modelo definido en models.py
 from dotenv import load_dotenv
+from sqlalchemy import text
 import os
 
 # Cargar variables de entorno desde el archivo .env
@@ -20,11 +22,15 @@ def create_app():
     # Inicializar la base de datos
     db.init_app(app)
 
+
+    migrate = Migrate(app, db)
+
+    
     # Verificar la conexión a la base de datos
     with app.app_context():
         try:
             with db.session.begin():
-                db.session.execute("SELECT 1")  # Simple query para verificar la conexión
+                db.session.execute(text("SELECT 1"))  # Simple query para verificar la conexión
         except Exception as e:
             print(f"Error al conectar a la base de datos: {e}")
 
