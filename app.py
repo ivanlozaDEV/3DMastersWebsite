@@ -1,6 +1,6 @@
 from flask import Flask, redirect, url_for, send_from_directory
 from flask_migrate import Migrate
-from extensions import db
+from backend.extensions import db
 from flask_cors import CORS
 from backend.routes import api_blueprint
 from backend.config import Config
@@ -25,7 +25,7 @@ def create_app():
 
     migrate = Migrate(app, db)
 
-    
+
     # Verificar la conexión a la base de datos
     with app.app_context():
         try:

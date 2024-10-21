@@ -1,4 +1,4 @@
-from extensions import db
+from backend.extensions import db
 
 class Item(db.Model):
     __tablename__ = 'items'
