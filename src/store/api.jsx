@@ -1,10 +1,9 @@
-
-const API_URL = import.meta.env.VITE_API_URL;  
-
+const API_URL = import.meta.env.VITE_API_URL;
+console.log("API URL:", API_URL); // Verifica que esto no sea undefined
 
 export const getItems = async () => {
   try {
-    const response = await fetch(`${API_URL}/items`, {
+    const response = await fetch(`${API_URL}/items`, { // Elimina el segundo '/api'
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -24,7 +23,7 @@ export const getItems = async () => {
 // Agregar un nuevo ítem
 export const addItem = async (item) => {
   try {
-    const response = await fetch(`${API_URL}/items`, {
+    const response = await fetch(`${API_URL}/items`, { // Elimina el segundo '/api'
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
