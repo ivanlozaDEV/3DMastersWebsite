@@ -24,6 +24,7 @@ def add_item():
     except Exception as e:
         print(f"Error adding item: {e}")
         return jsonify({"error": "Failed to add item"}), 500
+    
 
 @api_blueprint.route('/items/<int:item_id>', methods=['DELETE'])
 def delete_item(item_id):
