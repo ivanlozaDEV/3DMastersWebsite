@@ -1,33 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { getItems, addItem } from '../src/store/api.jsx';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import injectContext from '../src/store/appContext.jsx';
+
+
+
+import Home from './pages/home.jsx';
+import Login from './pages/Login.jsx';
+
+
+
+
 
 function App() {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    getItems().then(data => setItems(data));
-  }, []);
-
-  const handleAddItem = () => {
-    const itemName = prompt('Enter the item name:');
-    if (itemName) {
-      addItem({ name: itemName }).then(() => {
-        getItems().then(data => setItems(data));
-      });
-    }
-  };
-
   return (
-    <div>
-      <h1>Items List</h1>
-      <ul>
-        {items.map(item => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
-      <button onClick={handleAddItem}>Add Item</button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route element={<h1>Not found!</h1>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App;
+export default injectContext(App);
