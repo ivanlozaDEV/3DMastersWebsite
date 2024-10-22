@@ -24,3 +24,17 @@ def add_item():
     except Exception as e:
         print(f"Error adding item: {e}")
         return jsonify({"error": "Failed to add item"}), 500
+
+@api_blueprint.route('/items/<int:item_id>', methods=['DELETE'])
+def delete_item(item_id):
+    try:
+        item = Item.query.get(item_id)
+        if item is None:
+            return jsonify({"error": "Item not found"}), 404
+
+        db.session.delete(item)
+        db.session.commit()
+        return jsonify({"message": "Item deleted successfully!"}), 200
+    except Exception as e:
+        print(f"Error deleting item: {e}")
+        return jsonify({"error": "Failed to delete item"}), 500
