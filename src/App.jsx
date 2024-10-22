@@ -5,7 +5,7 @@ import injectContext from '../src/store/appContext.jsx';
 
 
 import Home from './pages/home.jsx';
-import Login from './pages/Login.jsx';
+
 
 
 
@@ -16,7 +16,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
         <Route element={<h1>Not found!</h1>} />
       </Routes>
     </BrowserRouter>
