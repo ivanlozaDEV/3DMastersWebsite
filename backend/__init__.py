@@ -1,7 +1,7 @@
 # backend/__init__.py
 
 from flask import Flask
-from extensions import db  # Asegúrate de que esto apunte a la extensión correcta
+from backend.extensions import db  # Asegúrate de que esto apunte a la extensión correcta
 
 def create_app():
     app = Flask(__name__)
