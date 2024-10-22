@@ -6,7 +6,7 @@ services:
     region: ohio
     name: ViteCHGTP
     env: python
-    buildCommand: "./render_build.sh && python backend/initialize_db.py"  # Modificado para apuntar al script correcto
+    buildCommand: "./render_build.sh && python initialize_db.py"  # Modificado para apuntar al script correcto
     startCommand: "gunicorn wsgi:application"
     plan: free
     numInstances: 1
