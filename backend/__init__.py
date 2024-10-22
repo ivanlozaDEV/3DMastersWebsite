@@ -1,4 +1,3 @@
-# backend/__init__.py
 
 from flask import Flask
 from backend.extensions import db  # Asegúrate de que esto apunte a la extensión correcta
