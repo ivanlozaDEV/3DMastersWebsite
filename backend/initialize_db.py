@@ -1,8 +1,8 @@
 import sys
 import os
 
-# Agregar el directorio backend al path de Python
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'backend')))
+# Agregar el directorio raíz al path de Python
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from extensions import db  # Importar la extensión desde el directorio backend
 from ..app import create_app  # Importar la función create_app desde el archivo en la raíz
