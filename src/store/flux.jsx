@@ -1,62 +1,50 @@
 const getState = ({ getStore, getActions, setStore }) => {
-
-  // import.meta.env.VITE_API_URL;
-
   return {
     store: {
       saludo: "Hola",
       items: [],
+      users: []
     },
     actions: {
-      createItem: async (item) => {
-        try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/items`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(item),
-          });
-          if (!response.ok) {
-            return false;
-          }
-          const data = await response.json();
-          return data;
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      getItems: async () => {
-        try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/items`);
-          const data = await response.json();
-          if (response.ok) {
-            setStore({ items: data });
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      deleteItem: async (item_id) => {
+      createUser: async (name, username, password) => {
         try {
           const response = await fetch(
-            `${import.meta.env.VITE_API_URL}/items/${item_id}`,
+            import.meta.env.VITE_API_URL + "/1$9DJS470cMFeSks4F$",
             {
-              method: "DELETE",
+              method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
+              body: JSON.stringify({
+                name,
+                username,
+                password
+              }),
             }
           );
+          
           if (!response.ok) {
+            const errorDetails = await response.json();
+            console.error('Error creating user:', errorDetails);
             return false;
           }
-          const data = await response.json();
-          return data;
+          
+          const newUser = await response.json();
+          
+          // Update the store with the new user
+          setStore(store => ({
+            ...store,
+            users: [...store.users, newUser]
+          }));
+          
+          return true;
         } catch (error) {
-          console.log(error);
+          console.error("Error creating user:", error);
+          return false;
         }
       },
+
+      // You can add more actions here as needed
     },
   };
 };

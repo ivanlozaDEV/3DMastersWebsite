@@ -10,6 +10,11 @@ export default {
   ],
   theme: {
     extend: {},
+      colors: {
+        customGreen: "#9fc522",
+        customGray: "#636362",
+        customBlack: "#3f3e3d"
+      }
   },
   darkMode: "class",
   plugins: [

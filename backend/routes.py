@@ -1,41 +1,33 @@
 from flask import Blueprint, jsonify, request
-from backend.models import Item
+from backend.models import User, Category, Product, Quote, ProductRequest
 from backend.extensions import db
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
+
 
 api_blueprint = Blueprint('api', __name__)
 
-@api_blueprint.route('/items', methods=['GET'])
-def get_items():
-    items = Item.query.all()
-    items_list = [item.serialize() for item in items]  # Usar el método de serialización
-    return jsonify(items_list)
+@api_blueprint.route('/1$9DJS470cMFeSks4F$', methods=['POST'])
+def user_register():
+    body= request.json
+    name = body.get('name')
+    username = body.get('username')
+    password = body.get('password')
 
-@api_blueprint.route('/items', methods=['POST'])
-def add_item():
-    try:
-        data = request.json
-        if 'name' not in data:
-            return jsonify({"error": "Name is required"}), 400
-
-        new_item = Item(name=data['name'])
-        db.session.add(new_item)
-        db.session.commit()
-        return jsonify({"message": "Item added successfully!"}), 201
-    except Exception as e:
-        print(f"Error adding item: {e}")
-        return jsonify({"error": "Failed to add item"}), 500
+    if User.query.filter_by(username=username).first():
+        return jsonify({'error': 'Username already exists'}), 400
     
+    if name is None or username is None or password is None:
+        return jsonify({'error': 'Missing Data'}), 400
+    
+    password_hash = generate_password_hash(password)
 
-@api_blueprint.route('/items/<int:item_id>', methods=['DELETE'])
-def delete_item(item_id):
     try:
-        item = Item.query.get(item_id)
-        if item is None:
-            return jsonify({"error": "Item not found"}), 404
-
-        db.session.delete(item)
+        new_user = User(name=name, username=username, password=password_hash)
+        db.session.add(new_user)
         db.session.commit()
-        return jsonify({"message": "Item deleted successfully!"}), 200
-    except Exception as e:
-        print(f"Error deleting item: {e}")
-        return jsonify({"error": "Failed to delete item"}), 500
+        return jsonify({'message': 'user created succesfully'}), 201
+    except Exception as error:
+        db.session.rollback()
+        return jsonify({'error': f"{error}"}), 500
+

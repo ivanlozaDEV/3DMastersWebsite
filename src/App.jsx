@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import injectContext from "../src/store/appContext.jsx";
 
 import Home from "./pages/home.jsx";
+import Register from "./pages/register.jsx";
 import Navbar from "./components/navbar.jsx";
 
 function App({ Component, pageProps }) {
@@ -15,6 +16,7 @@ function App({ Component, pageProps }) {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/1$9DJS470cMFeSks4F$" element = {<Register />} />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
         </BrowserRouter>
