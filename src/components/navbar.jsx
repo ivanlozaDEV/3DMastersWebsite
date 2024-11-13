@@ -1,77 +1,48 @@
-import React from "react";
-import {Navbar as Navbarui, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button} from "@nextui-org/react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
-
   return (
-    <Navbarui className="bg-base-100 shadow-lg" color="foreground" position="static">
-      <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
-        <NavbarBrand>
-          <p className="font-bold text-inherit">ACME</p>
-        </NavbarBrand>
-      </NavbarContent>
-
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" to="#">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link to="#" aria-current="page">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" to="#">
-            Integrations
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link to="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" to="#" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
-              }
-              className="w-full"
-              to="#"
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
-    </Navbarui>
+    <header className="bg-white shadow-md">
+      <div className="container mx-auto px-4 py-6 flex justify-between items-center">
+        <Link href="/" className="flex items-center">
+          <div className="flex items-center">
+            <Image
+              src="/img/3d.png"
+              alt="placeholder image"
+              width={30}
+              height={30}
+              style={{ objectFit: "cover" }}
+            />
+            <span className="text-2xl font-bold text-gray-800">3D Masters</span>
+          </div>
+        </Link>
+        <nav>
+          <ul className="flex space-x-4">
+            <li>
+              <Link
+                href="/products"
+                className="text-gray-600 hover:text-gray-800"
+              >
+                Categorias
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className="text-gray-600 hover:text-gray-800">
+                Sobre Nosotros
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className="text-gray-600 hover:text-gray-800"
+              >
+                Contacto
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
   );
 }

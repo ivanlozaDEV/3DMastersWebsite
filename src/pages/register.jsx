@@ -46,7 +46,7 @@ export default function Register() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-customBlack">
       <form onSubmit={handleSubmit} className="bg-customGray p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center text-black ">Registro de Super Usuario</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-white ">Registro de Super Usuario</h2>
         <div className="flex flex-col gap-4">
           <Input
             label="Nombre"
